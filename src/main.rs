@@ -26,8 +26,18 @@ pub async fn get_user(req: &mut Request, res: &mut Response) {
     res.render(serde_json::to_string(&data).unwrap());
 }
 
+#[handler]
+pub async fn get_user2(req: &mut Request, res: &mut Response) {
+    let uid = req.query::<i64>("id").unwrap();
+    let data = Users::select_by_id(&mut RB.clone(), uid.to_string()).await.unwrap();
+    println!("{:?}", data);
+    res.render(serde_json::to_string(&data).unwrap());
+}
+
 fn init_router() -> Router {
-    Router::new().push(Router::new().path("/users").get(get_user))
+    Router::new()
+        .push(Router::with_path("/users").get(get_user))
+        .push(Router::with_path("/users2").get(get_user2))
 }
 #[tokio::main]
 async fn main() {
