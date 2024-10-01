@@ -37,7 +37,7 @@ pub async fn get_user2(req: &mut Request, res: &mut Response) {
 fn init_router() -> Router {
     Router::new()
         .push(Router::with_path("/users").get(get_user))
-        // .push(Router::with_path("/users2").get(get_user2))
+        .push(Router::with_path("/users2").get(get_user2))
 }
 #[tokio::main]
 async fn main() {
