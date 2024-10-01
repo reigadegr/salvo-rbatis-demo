@@ -1,3 +1,8 @@
+mod config;
+mod research;
+
+use config::router::init_router;
+
 #[macro_use]
 extern crate rbatis;
 extern crate rbdc;
@@ -17,28 +22,6 @@ pub struct Users {
     pub password: String,
 }
 
-impl_select!(Users{select_by_id(id:String) -> Option => "`where id = #{id} limit 1`"});
-#[handler]
-pub async fn get_user(req: &mut Request, res: &mut Response) {
-    let uid = req.query::<i64>("id").unwrap();
-    let data = Users::select_by_id(&mut RB.clone(), uid.to_string()).await.unwrap();
-    println!("{:?}", data);
-    res.render(serde_json::to_string(&data).unwrap());
-}
-
-#[handler]
-pub async fn get_user2(req: &mut Request, res: &mut Response) {
-    let uid = req.query::<i64>("id").unwrap();
-    let data = Users::select_by_id(&mut RB.clone(), uid.to_string()).await.unwrap();
-    println!("{:?}", data);
-    res.render(serde_json::to_string(&data).unwrap());
-}
-
-fn init_router() -> Router {
-    Router::new()
-        .push(Router::with_path("/users").get(get_user))
-        .push(Router::with_path("/users2").get(get_user2))
-}
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt().init();
