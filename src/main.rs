@@ -26,8 +26,8 @@ pub async fn get_user(req: &mut Request, res: &mut Response) {
     res.render(serde_json::to_string(&data).unwrap());
 }
 
-fn init_router()->Router{
-    Router::with_path("users").get(get_user)
+fn init_router() -> Router {
+    Router::new().push(Router::new().path("/users").get(get_user))
 }
 #[tokio::main]
 async fn main() {
@@ -41,5 +41,6 @@ async fn main() {
     let router = init_router();
 
     tracing::info!("Listening on http://127.0.0.1:5800");
-    let acceptor = TcpListener::new("0.0.0.0:5800").bind().await; Server::new(acceptor).serve(router).await;
+    let acceptor = TcpListener::new("0.0.0.0:5800").bind().await;
+    Server::new(acceptor).serve(router).await;
 }
