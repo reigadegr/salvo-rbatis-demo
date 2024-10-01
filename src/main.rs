@@ -44,7 +44,7 @@ async fn main() {
     tracing_subscriber::fmt().init();
 
     // mysql connect info
-    let mysql_uri = "mysql://root:1234@127.0.0.1/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+    let mysql_uri = "mysql://root:1234@127.0.0.1:3306/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     RB.link(MysqlDriver {}, mysql_uri).await.unwrap();
 
     // router
