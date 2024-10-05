@@ -1,5 +1,5 @@
 extern crate rbatis;
-extern crate rbdc;
+// extern crate rbdc;
 mod config;
 mod controller;
 mod mapper;

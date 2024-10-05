@@ -1,7 +1,8 @@
 use crate::config::init::RB;
 use crate::pojo::users::Users;
 use crate::res::result::ResponseData;
-use crate::services::UsersService;
+// use crate::services::UsersService;
+use crate::services::users_service::UsersService;
 use salvo::{Request, Response};
 pub struct UsersServicesImpl;
 impl UsersService for UsersServicesImpl {
