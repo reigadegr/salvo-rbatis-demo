@@ -1,4 +1,4 @@
-use crate::services::r#impl::users_services_impl::UsersServicesImpl;
+use crate::services::impl::users_services_impl::UsersServicesImpl;
 use salvo::{handler, Request, Response};
 
 use crate::services::users_service::UsersService;
