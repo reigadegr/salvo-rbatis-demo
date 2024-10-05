@@ -14,7 +14,7 @@ use serde::{Serialize, Deserialize};
 use rbdc_mysql::driver::MysqlDriver;
 pub static RB: Lazy<RBatis> = Lazy::new(|| RBatis::new());
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct Users {
     pub id: i64,
     pub username: String,
