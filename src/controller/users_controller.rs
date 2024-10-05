@@ -1,7 +1,7 @@
 use crate::services::Impl::users_services_impl::UsersServicesImpl;
 use salvo::{handler, Request, Response};
 
-use crate::services:: users_service:: UsersService;
+use crate::services::users_service::UsersService;
 
 //示例：http://127.0.0.1:5800/login/?username=admin&password=123456
 

@@ -1,0 +1,59 @@
+extern crate rbatis;
+// extern crate rbdc;
+mod config;
+mod controller;
+mod mapper;
+mod pojo;
+mod res;
+mod services;
+
+use config::init::init_filesystem;
+use config::nacos::init_nacos_service;
+
+#[tokio::main]
+async fn main() {
+    init_nacos_service().await;
+    init_filesystem().await;
+}
+
+/*
+用户:
+Kimi: 要在 Salvo 框架中启用 HTTP/2，你需要在 `Cargo.toml` 文件中启用 `http2` 特性。以下是具体的步骤：
+
+1. 在 `Cargo.toml` 文件中添加 `salvo` 依赖，并启用 `http2` 特性：
+   ```toml
+   [dependencies]
+   salvo = { version = "0.72", features = ["http2"] }
+   ```
+
+2. 在你的 `main.rs` 文件中，你可以设置一个监听器来使用 HTTP/2 协议。以下是一个示例代码：
+   ```rust
+   use salvo::prelude::*;
+   use salvo::http::HttpVersion;
+   use salvo::listener::TcpListener;
+
+   #[handler]
+   async fn hello_world(res: &mut Response) {
+       res.render("Hello World");
+   }
+
+   #[tokio::main]
+   async fn main() {
+       let router = Router::new().get(hello_world);
+       let acceptor = TcpListener::new("127.0.0.1:5800")
+           .hyper_config(|config| {
+               config.http1_only(false) // 允许 HTTP/2
+                   .http1_title("Salvo HTTP/2 Example");
+           })
+           .bind()
+           .await;
+       Server::new(acceptor).serve(router).await;
+   }
+   ```
+
+3. 确保你的服务器配置支持 HTTP/2，并且你的客户端也支持 HTTP/2。
+
+4. 运行你的 Rust 程序，然后使用支持 HTTP/2 的客户端（如 `curl`）来测试你的服务。
+
+请注意，Salvo 也支持 HTTP/3，如果你想要启用 HTTP/3，可以在 `Cargo.toml` 中启用 `quinn` 特性，并使用相应的配置。更多详细信息和示例代码，你可以查看 Salvo 的官方文档 。
+*/

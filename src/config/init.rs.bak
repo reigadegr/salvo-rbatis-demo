@@ -5,7 +5,7 @@ use salvo::{Listener, Server};
 
 use once_cell::sync::Lazy;
 use rbatis::RBatis;
-// use salvo_core::prelude::*;
+use salvo_core::prelude::*;
 pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
 
 pub async fn init_filesystem() {
