@@ -5,7 +5,7 @@ use crate::res::result::ResponseData;
 #[handler]
 pub async fn get_user(req: &mut Request, res: &mut Response) -> () {
     let uid = req.query::<i8>("id").unwrap();
-    let data = Users::select_by_id(&mut RB.clone(), uid.to_string()).await.unwrap();
+    let data = Users::select_by_id(&RB.clone(), uid.to_string()).await.unwrap();
     if data.is_none() {
         let data: ResponseData<()> = ResponseData::error("用户不存在");
         println!("{:?}", data);
