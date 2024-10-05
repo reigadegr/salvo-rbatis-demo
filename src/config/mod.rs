@@ -1,2 +1,2 @@
 pub mod router;
-mod nacos;
+pub mod nacos;
