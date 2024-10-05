@@ -31,7 +31,7 @@ static NAMING_SERVICE: LazyLock<Box<dyn NamingService>> = LazyLock::new(|| {
 });
 
 pub async fn init_nacos_service() {
-    let listener = std::sync::Arc::new(MyNamingEventListener);
+    let listener = Arc::new(MyNamingEventListener);
     let _subscribe_ret = NAMING_SERVICE
         .subscribe(
             "salvo-rbatis-demo".to_string(),
