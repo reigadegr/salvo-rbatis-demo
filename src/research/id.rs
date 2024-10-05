@@ -1,5 +1,5 @@
 use salvo::{handler, Request, Response};
-use crate::{RB, Users};
+use crate::{config::init::RB, pojo::users::Users};
 use crate::res::result::ResponseData;
 
 #[handler]
