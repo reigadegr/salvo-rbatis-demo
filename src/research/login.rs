@@ -7,7 +7,7 @@ impl_select!(Users{select_by_id(id:String) -> Option => "`where id = #{id} limit
 impl_select!(Users{login(username:String,password:String) -> Option => "`where username = #{username} AND password = #{password} limit 1`"});
 
 #[handler]
-pub async fn user_login(req: &mut Request, res: &mut Response) {
+pub async fn user_login(req: &mut Request, res: &mut Response) -> () {
     //示例：http://127.0.0.1:5800/login/?username=admin&password=123456
     let username = req.query::<&str>("username").unwrap();
     let password = req.query::<&str>("password").unwrap();
@@ -15,10 +15,9 @@ pub async fn user_login(req: &mut Request, res: &mut Response) {
     if data.is_none() {
         let data: ResponseData<()> = ResponseData::error("用户名或密码错误");
         println!("{:?}", data);
-        res.render(serde_json::to_string(&data).unwrap());
-        return;
+        return res.render(serde_json::to_string(&data).unwrap());
     }
     let data = ResponseData::success(data, "登录成功");
     println!("{:?}", data);
-    res.render(serde_json::to_string(&data).unwrap());
+    return res.render(serde_json::to_string(&data).unwrap());
 }
