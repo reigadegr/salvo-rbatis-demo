@@ -1,5 +1,5 @@
 use salvo::Router;
-use crate::controller::login::users_login;
+use crate::controller::users_controller::users_login;
 
 pub fn init_router() -> Router {
     Router::new()

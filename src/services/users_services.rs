@@ -2,9 +2,10 @@ use salvo::{Request, Response};
 use crate::config::init::RB;
 use crate::pojo::users::Users;
 use crate::res::result::ResponseData;
-pub struct users_services;
-impl users_services{
-    pub async fn login(req: &mut Request, res: &mut Response) -> () {
+pub struct UsersServices;
+impl UsersServices {
+    // #[warn(clippy::needless_return)]
+    pub async fn login(req: &mut Request, res: &mut Response) {
         //示例：http://127.0.0.1:5800/login/?username=admin&password=123456
         println!("{:?}", req);
         let username = req.query::<&str>("username").unwrap();
@@ -17,6 +18,6 @@ impl users_services{
         }
         let data = ResponseData::success(data, "登录成功");
         println!("{:?}", data);
-        return res.render(serde_json::to_string(&data).unwrap());
+        res.render(serde_json::to_string(&data).unwrap())
     }
 }
