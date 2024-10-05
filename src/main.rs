@@ -1,6 +1,6 @@
 mod config;
 mod research;
-
+mod res;
 use config::router::init_router;
 use config::nacos::init_nacos_service;
 #[macro_use]

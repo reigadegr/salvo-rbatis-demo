@@ -1,7 +1,6 @@
 use salvo::Router;
-use crate::research::login::get_user;
-use crate::research::login::get_user2;
 use crate::research::login::user_login;
+use crate::research::id::get_user;
 
 pub fn init_router() -> Router {
     Router::new()
