@@ -8,7 +8,7 @@ use rbatis::RBatis;
 // use salvo_core::prelude::*;
 pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
 
-pub async fn init_filesystem() {
+pub async fn init_salvo_framework() {
     tracing_subscriber::fmt().init();
 
     // mysql connect info

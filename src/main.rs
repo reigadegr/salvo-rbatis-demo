@@ -7,11 +7,11 @@ mod pojo;
 mod res;
 mod services;
 
-use config::init::init_filesystem;
+use config::init::init_salvo_framework;
 use config::nacos::init_nacos_service;
 
 #[tokio::main]
 async fn main() {
     init_nacos_service().await;
-    init_filesystem().await;
+    init_salvo_framework().await;
 }
