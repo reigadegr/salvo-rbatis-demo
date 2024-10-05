@@ -1,5 +1,5 @@
-use salvo::{handler, Request, Response};
 use crate::services::Impl::users_services_impl::UsersServicesImpl;
+use salvo::{handler, Request, Response};
 
 use crate::services::UsersService;
 
@@ -9,4 +9,3 @@ use crate::services::UsersService;
 pub async fn users_login(req: &mut Request, res: &mut Response) -> () {
     return <UsersServicesImpl as UsersService>::login(req, res).await;
 }
-

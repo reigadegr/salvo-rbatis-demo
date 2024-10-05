@@ -1,4 +1,3 @@
-
 use nacos_sdk::api::constants;
 use nacos_sdk::api::naming::{
     NamingChangeEvent, NamingEventListener, NamingService, NamingServiceBuilder, ServiceInstance,
@@ -38,7 +37,8 @@ pub async fn init_nacos_service() {
             Some(constants::DEFAULT_GROUP.to_string()),
             Vec::default(),
             listener,
-        ).await;
+        )
+        .await;
 
     let service_instance1 = ServiceInstance {
         ip: "127.0.0.1".to_string(),
@@ -51,5 +51,6 @@ pub async fn init_nacos_service() {
             "salvo-rbatis-demo".to_string(),
             Some(constants::DEFAULT_GROUP.to_string()),
             vec![service_instance1],
-        ).await;
+        )
+        .await;
 }

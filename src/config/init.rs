@@ -1,8 +1,7 @@
+use crate::config::router::init_router;
 use rbdc_mysql::MysqlDriver;
 use salvo::conn::TcpListener;
 use salvo::{Listener, Server};
-use crate::config::router::init_router;
-
 
 use once_cell::sync::Lazy;
 use rbatis::RBatis;

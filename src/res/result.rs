@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 // 定义响应数据结构体
 #[derive(Serialize, Deserialize, Debug)]
