@@ -21,12 +21,12 @@ pub async fn init_salvo_framework() {
     tracing::info!("Listening on http://127.0.0.1:5800");
     let acceptor = TcpListener::new("0.0.0.0:5800").bind().await;
     let server = Server::new(acceptor);
-    let handle = server.handle();
     // 优雅地关闭服务器
-    tokio::spawn(async move {
-        tokio::time::sleep(std::time::Duration::from_secs(60)).await;
-        handle.stop_graceful(None);
-    });
+    // let handle = server.handle();
+    // tokio::spawn(async move {
+    //     tokio::time::sleep(std::time::Duration::from_secs(60)).await;
+    //     handle.stop_graceful(None);
+    // });
     
     server.serve(router).await;
 }

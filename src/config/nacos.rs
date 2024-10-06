@@ -17,7 +17,7 @@ static CLIENT_PROPS: LazyLock<ClientProps> = LazyLock::new(|| {
     ClientProps::new()
         .server_addr(constants::DEFAULT_SERVER_ADDR)
         .namespace("")
-        .app_name("lazy_app")
+        .app_name("salvo-rbatis-demo")
         .auth_username("admin")
         .auth_password("admin")
 });
