@@ -5,10 +5,10 @@ use crate::services::users_service::UsersService;
 use salvo::{Request, Response};
 use salvo::prelude::*;
 use serde::{Deserialize, Serialize};
-#[derive(Debug, Serialize, Deserialize, Extractible,Clone)]
+#[derive(Debug, Serialize, Deserialize, Extractible, Clone)]
 struct UserInfo {
-    pub username: String,
-    pub password: String,
+    username: String,
+    password: String,
 }
 pub struct UsersServicesImpl;
 impl UsersService for UsersServicesImpl {
