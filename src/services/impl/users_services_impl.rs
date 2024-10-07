@@ -2,8 +2,8 @@ use crate::config::init::RB;
 use crate::pojo::users::Users;
 use crate::res::result::ResponseData;
 use crate::services::users_service::UsersService;
-use salvo::{Request, Response};
 use salvo::prelude::*;
+use salvo::{Request, Response};
 use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Extractible, Clone)]
 struct UserInfo {
