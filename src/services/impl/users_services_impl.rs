@@ -38,8 +38,6 @@ impl UsersService for UsersServicesImpl {
         let a2 = user_info.unwrap();
         let username = a2.username;
         let password = a2.password;
-        let data = ResponseData::success("data", "登录成功");
-        println!("{:?}", data);
         let data = Users::login(&RB.clone(), username.to_string(), password.to_string())
             .await
             .unwrap();
