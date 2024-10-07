@@ -3,7 +3,6 @@ use once_cell::sync::Lazy;
 use rbatis::RBatis;
 use rbdc_mysql::MysqlDriver;
 use salvo::conn::rustls::{Keycert, RustlsConfig};
-use salvo::conn::tcp::TcpAcceptor;
 use salvo::conn::{QuinnListener, TcpListener};
 use salvo::{Listener, Router, Server};
 
@@ -11,8 +10,7 @@ pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
 
 async fn use_http1(router: Router) {
     let acceptor = TcpListener::new("0.0.0.0:5800").bind().await;
-    let server = Server::new(acceptor);
-    server.serve(router).await;
+    Server::new(acceptor).serve(router).await;
 }
 async fn use_http3(router: Router) {
     let cert = include_bytes!("../../cert/cert.pem").to_vec();
@@ -23,8 +21,7 @@ async fn use_http3(router: Router) {
         .join(listener)
         .bind()
         .await;
-    let server = Server::new(acceptor);
-    server.serve(router).await;
+    Server::new(acceptor).serve(router).await;
 }
 pub async fn init_salvo_framework() {
     tracing_subscriber::fmt().init();
