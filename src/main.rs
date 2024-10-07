@@ -13,7 +13,5 @@ use config::nacos::init_nacos_service;
 #[tokio::main]
 async fn main() {
     init_nacos_service().await;
-    
-    
-    init_salvo_framework().await
+    init_salvo_framework().await;
 }
