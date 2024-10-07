@@ -7,19 +7,15 @@ use salvo::conn::{QuinnListener, TcpListener};
 use salvo::{Listener, Server};
 pub static RB: Lazy<RBatis> = Lazy::new(RBatis::new);
 
-async fn init_mysql() {
-    // mysql connect info
-    let mysql_uri = "mysql://root:1234@127.0.0.1:3306/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    RB.link(MysqlDriver {}, mysql_uri).await.unwrap();
-}
 pub async fn init_salvo_framework() {
     tracing_subscriber::fmt().init();
     let cert = include_bytes!("../../cert/cert.pem").to_vec();
     let key = include_bytes!("../../cert/key.pem").to_vec();
     let config = RustlsConfig::new(Keycert::new().cert(cert.as_slice()).key(key.as_slice()));
-    // mysql connect info
 
-    init_mysql().await;
+    // mysql connect info
+    let mysql_uri = "mysql://root:1234@127.0.0.1:3306/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+    RB.link(MysqlDriver {}, mysql_uri).await.unwrap();
     // router
     let router = init_router();
 
