@@ -21,3 +21,8 @@ pub async fn hello(req: &mut Request) -> &'static str {
     println!("请求体：{:?}", req);
     "Hello World"
 }
+
+#[handler]
+pub async fn get_list(req: &mut Request, res: &mut Response){
+    <UsersServicesImpl as UsersService>::get_list(req, res).await
+}

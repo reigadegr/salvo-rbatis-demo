@@ -5,6 +5,7 @@ use crate::services::users_service::UsersService;
 use salvo::prelude::*;
 use salvo::{Request, Response};
 use serde::{Deserialize, Serialize};
+
 #[derive(Debug, Serialize, Deserialize, Extractible, Clone)]
 struct UserInfo {
     username: String,
@@ -29,15 +30,14 @@ impl UsersService for UsersServicesImpl {
         println!("{:?}", data);
         res.render(serde_json::to_string(&data).unwrap())
     }
-
     async fn login_post(req: &mut Request, res: &mut Response) {
         //示例：http://127.0.0.1:5800/login/?username=admin&password=123456
         println!("请求体：{:?}", req);
         let user_info = req.parse_json::<UserInfo>().await;
         println!("{:?}", &user_info);
-        let a2 = user_info.unwrap();
-        let username = a2.username;
-        let password = a2.password;
+        let user_info = user_info.unwrap();
+        let username = user_info.username;
+        let password = user_info.password;
         let data = Users::login(&RB.clone(), username.to_string(), password.to_string())
             .await
             .unwrap();
@@ -48,6 +48,15 @@ impl UsersService for UsersServicesImpl {
         }
         let data = ResponseData::success(data, "登录成功");
         println!("{:?}", data);
+        res.render(serde_json::to_string(&data).unwrap())
+    }
+
+    async fn get_list(req: &mut Request, res: &mut Response) {
+        println!("{:?}", req);
+        let data = Users::gl(&mut RB.clone(),"admin".to_string())
+            .await
+            .unwrap();
+        let data = ResponseData::success(data, "查询管理员成功");
         res.render(serde_json::to_string(&data).unwrap())
     }
 }

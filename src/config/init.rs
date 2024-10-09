@@ -12,6 +12,8 @@ async fn use_http1(router: Router) {
     let acceptor = TcpListener::new("0.0.0.0:5800").bind().await;
     Server::new(acceptor).serve(router).await;
 }
+
+#[warn(dead_code)]
 async fn use_http3(router: Router) {
     let cert = include_bytes!("../../cert/cert.pem").to_vec();
     let key = include_bytes!("../../cert/key.pem").to_vec();
