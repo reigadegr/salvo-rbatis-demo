@@ -17,7 +17,7 @@ static CLIENT_PROPS: LazyLock<ClientProps> = LazyLock::new(|| {
     ClientProps::new()
         .server_addr(constants::DEFAULT_SERVER_ADDR)
         .namespace("")
-        .app_name("salvo-rbatis-demo")
+        .app_name("users-service")
         .auth_username("admin")
         .auth_password("admin")
 });
@@ -33,7 +33,7 @@ pub async fn init_nacos_service() {
     let listener = Arc::new(MyNamingEventListener);
     let _subscribe_ret = NAMING_SERVICE
         .subscribe(
-            "salvo-rbatis-demo".to_string(),
+            "users-service".to_string(),
             Some(constants::DEFAULT_GROUP.to_string()),
             Vec::default(),
             listener,
@@ -48,7 +48,7 @@ pub async fn init_nacos_service() {
 
     let _register_instance_ret = NAMING_SERVICE
         .batch_register_instance(
-            "salvo-rbatis-demo".to_string(),
+            "users-service".to_string(),
             Some(constants::DEFAULT_GROUP.to_string()),
             vec![service_instance1],
         )

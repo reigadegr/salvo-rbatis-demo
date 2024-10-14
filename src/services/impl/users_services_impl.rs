@@ -5,6 +5,8 @@ use crate::services::users_service::UsersService;
 use salvo::prelude::*;
 use salvo::{Request, Response};
 use serde::{Deserialize, Serialize};
+use crate::config::redis::redis_write;
+use crate::pojo::token::Token;
 
 #[derive(Debug, Serialize, Deserialize, Extractible, Clone)]
 struct UserInfo {
@@ -38,17 +40,41 @@ impl UsersService for UsersServicesImpl {
         let user_info = user_info.unwrap();
         let username = user_info.username;
         let password = user_info.password;
-        let data = Users::login(&RB.clone(), username.to_string(), password.to_string())
+        let data = Box::new(Users::login(&RB.clone(), username.to_string(), password.to_string())
             .await
-            .unwrap();
+            .unwrap());
+
         if data.is_none() {
             let data: ResponseData<()> = ResponseData::error("用户名或密码错误");
-            println!("{:?}", data);
             return res.render(serde_json::to_string(&data).unwrap());
         }
-        let data = ResponseData::success(data, "登录成功");
-        println!("{:?}", data);
+
+        let rs = redis_write("now_user_role", &*<Option<Users> as Clone>::clone(&data).unwrap()._type).await;
+
+        if let Err(e) = rs {
+            println!("! {:?}", e);
+            let data: ResponseData<()> = ResponseData::error("Redis连接错误");
+            return res.render(serde_json::to_string(&data).unwrap());
+        }
+
+        let rs = redis_write("now_user_name", &*<Option<Users> as Clone>::clone(&data).unwrap().username).await;
+
+        if let Err(e) = rs {
+            println!("! {:?}", e);
+            let data: ResponseData<()> = ResponseData::error("Redis连接错误");
+            return res.render(serde_json::to_string(&data).unwrap());
+        }
+        let now_token = Token {
+            token: format!("token-{}", &*<Option<Users> as Clone>::clone(&data).unwrap()._type),
+        };
+        let data = ResponseData::success(now_token, "登录成功");
+
+        println!("{:?}", &data);
         res.render(serde_json::to_string(&data).unwrap())
+    }
+
+    async fn users_info(req: &mut Request, res: &mut Response) {
+
     }
 
     async fn get_list(req: &mut Request, res: &mut Response) {
