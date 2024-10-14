@@ -16,6 +16,11 @@ pub async fn login_post(req: &mut Request, res: &mut Response) {
 }
 
 #[handler]
+pub async fn users_info(req: &mut Request, res: &mut Response) {
+    <UsersServicesImpl as UsersService>::login_post(req, res).await
+}
+
+#[handler]
 pub async fn hello(req: &mut Request) -> &'static str {
     println!("打印helloworld");
     println!("请求体：{:?}", req);

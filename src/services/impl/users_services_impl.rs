@@ -5,7 +5,7 @@ use crate::services::users_service::UsersService;
 use salvo::prelude::*;
 use salvo::{Request, Response};
 use serde::{Deserialize, Serialize};
-use crate::config::redis::redis_write;
+use crate::config::redis::{redis_read, redis_write};
 use crate::pojo::token::Token;
 
 #[derive(Debug, Serialize, Deserialize, Extractible, Clone)]
@@ -74,12 +74,23 @@ impl UsersService for UsersServicesImpl {
     }
 
     async fn users_info(req: &mut Request, res: &mut Response) {
-
+        let roles = redis_read("now_user_role");
+        println!("----------------");
+        match roles.await {
+            Ok(data) => {
+                println!("{:?}", data);
+            }
+            Err(e) => {
+                println!("{:?}", e);
+            }
+        }
+        println!("----------------");
+        let username = redis_read("now_user_name");
     }
 
     async fn get_list(req: &mut Request, res: &mut Response) {
         println!("{:?}", req);
-        let data = Users::gl(&mut RB.clone(),"admin".to_string())
+        let data = Users::gl(&mut RB.clone(), "admin".to_string())
             .await
             .unwrap();
         let data = ResponseData::success(data, "查询管理员成功");
