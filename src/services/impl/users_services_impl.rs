@@ -34,7 +34,7 @@ impl UsersService for UsersServicesImpl {
     }
     async fn login_post(req: &mut Request, res: &mut Response) {
         //示例：http://127.0.0.1:5800/login/?username=admin&password=123456
-        println!("请求体：{:?}", req);
+        println!("这是login_post。请求体：{:?}", req);
         let user_info = req.parse_json::<UserInfo>().await;
         println!("{:?}", &user_info);
         let user_info = user_info.unwrap();
@@ -67,10 +67,12 @@ impl UsersService for UsersServicesImpl {
         let now_token = Token {
             token: format!("token-{}", &*<Option<Users> as Clone>::clone(&data).unwrap()._type),
         };
-        let data = ResponseData::success(now_token, "登录成功");
+        let data = ResponseData::success(now_token, "登录成功qq");
 
         println!("{:?}", &data);
-        res.render(serde_json::to_string(&data).unwrap())
+        println!("登陆成功");
+        res.render(serde_json::to_string(&data).unwrap());
+        return;
     }
 
     async fn users_info(req: &mut Request, res: &mut Response) {

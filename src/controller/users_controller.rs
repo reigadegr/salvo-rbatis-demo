@@ -17,7 +17,7 @@ pub async fn login_post(req: &mut Request, res: &mut Response) {
 
 #[handler]
 pub async fn users_info(req: &mut Request, res: &mut Response) {
-    <UsersServicesImpl as UsersService>::login_post(req, res).await
+    <UsersServicesImpl as UsersService>::users_info(req, res).await
 }
 
 #[handler]

@@ -3,9 +3,11 @@ use salvo::Router;
 pub fn init_router() -> Router {
     Router::new()
         .push(Router::with_path("").get(hello))
-        .push(Router::with_path("/login").get(login))
-        .push(Router::with_path("/users/login").post(login_post))
-        .push(Router::with_path("/login").post(login_post))
-        .push(Router::with_path("/users/info").get(users_info))
-        .push(Router::with_path("/gl").get(get_list))
+        .push(Router::new().path("/users")
+            .push(Router::new().path("info").get(users_info))
+            .push(Router::new().path("login").post(login_post))
+        )
+
+        // .push(Router::with_path("/users/info").get(users_info))
+        // .push(Router::with_path("/users/login").post(login_post))
 }
