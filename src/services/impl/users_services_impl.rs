@@ -40,8 +40,7 @@ impl UsersService for UsersServicesImpl {
         )
         .await;
 
-        if let Err(e) = rs {
-            println!("! {:?}", e);
+        if rs.is_err() {
             let data: ResponseData<()> = ResponseData::error("Redis连接错误");
             return res.render(serde_json::to_string(&data).unwrap());
         }
@@ -52,8 +51,7 @@ impl UsersService for UsersServicesImpl {
         )
         .await;
 
-        if let Err(e) = rs {
-            println!("! {:?}", e);
+        if rs.is_err() {
             let data: ResponseData<()> = ResponseData::error("Redis连接错误");
             return res.render(serde_json::to_string(&data).unwrap());
         }
