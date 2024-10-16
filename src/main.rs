@@ -14,10 +14,6 @@ use redis::Commands;
 
 #[tokio::main]
 async fn main() {
-    // let rs = redis_write("a", "salvo2").await;
-    // if let Err(e) = rs {
-    //     println!("! {:?}", e);
-    // }
     init_nacos_service().await;
     init_salvo_framework().await;
 }
