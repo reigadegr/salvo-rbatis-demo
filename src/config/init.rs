@@ -13,7 +13,7 @@ async fn use_http1(router: Router) {
     Server::new(acceptor).serve(router).await;
 }
 
-#[warn(dead_code)]
+#[allow(dead_code)]
 async fn use_http3(router: Router) {
     let cert = include_bytes!("../../cert/cert.pem").to_vec();
     let key = include_bytes!("../../cert/key.pem").to_vec();

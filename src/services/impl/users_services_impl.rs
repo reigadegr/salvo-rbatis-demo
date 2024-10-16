@@ -38,7 +38,7 @@ impl UsersService for UsersServicesImpl {
             "now_user_role",
             &<Option<Users> as Clone>::clone(&data).unwrap()._type,
         )
-            .await;
+        .await;
 
         if let Err(e) = rs {
             println!("! {:?}", e);
@@ -50,7 +50,7 @@ impl UsersService for UsersServicesImpl {
             "now_user_name",
             &<Option<Users> as Clone>::clone(&data).unwrap().username,
         )
-            .await;
+        .await;
 
         if let Err(e) = rs {
             println!("! {:?}", e);
@@ -82,7 +82,7 @@ impl UsersService for UsersServicesImpl {
         res.render(serde_json::to_string(&data).unwrap());
     }
 
-    async fn users_logout(res: &mut Response)  {
+    async fn users_logout(res: &mut Response) {
         let rs = redis_delete("now_user_role").await;
         if rs.is_err() {
             let data: ResponseData<()> = ResponseData::error("Redis链接有误");
