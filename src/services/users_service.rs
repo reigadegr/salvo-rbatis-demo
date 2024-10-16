@@ -4,4 +4,5 @@ use salvo::{Request, Response};
 pub trait UsersService {
     async fn login_post(req: &mut Request, res: &mut Response);
     async fn users_info(res: &mut Response);
+    async fn users_logout(res: &mut Response);
 }

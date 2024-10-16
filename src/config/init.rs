@@ -25,12 +25,16 @@ async fn use_http3(router: Router) {
         .await;
     Server::new(acceptor).serve(router).await;
 }
-pub async fn init_salvo_framework() {
-    tracing_subscriber::fmt().init();
 
+async fn init_mysql() {
     // mysql connect info
     let mysql_uri = "mysql://root:1234@127.0.0.1:3306/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     RB.link(MysqlDriver {}, mysql_uri).await.unwrap();
+}
+pub async fn init_salvo_framework() {
+    tracing_subscriber::fmt().init();
+    init_mysql().await;
+
     // router
     let router = init_router();
 

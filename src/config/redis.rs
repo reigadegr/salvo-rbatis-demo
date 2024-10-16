@@ -17,3 +17,12 @@ pub async fn redis_read(key: &str) -> Result<String, RedisError> {
     let rs = con.get(key)?;
     Ok(rs)
 }
+
+pub async fn redis_delete(key: &str) -> Result<(), RedisError> {
+    // connect to redis
+    let client = redis::Client::open("redis://127.0.0.1/")?;
+    let mut con = client.get_connection()?;
+    // delete the key
+    let _: i32 = con.del(key)?;
+    Ok(())
+}

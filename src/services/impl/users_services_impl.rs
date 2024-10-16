@@ -1,5 +1,5 @@
 use crate::config::init::RB;
-use crate::config::redis::{redis_read, redis_write};
+use crate::config::redis::{redis_delete, redis_read, redis_write};
 use crate::pojo::token::Token;
 use crate::pojo::users::Users;
 use crate::res::result::ResponseData;
@@ -38,7 +38,7 @@ impl UsersService for UsersServicesImpl {
             "now_user_role",
             &*<Option<Users> as Clone>::clone(&data).unwrap()._type,
         )
-        .await;
+            .await;
 
         if let Err(e) = rs {
             println!("! {:?}", e);
@@ -50,7 +50,7 @@ impl UsersService for UsersServicesImpl {
             "now_user_name",
             &*<Option<Users> as Clone>::clone(&data).unwrap().username,
         )
-        .await;
+            .await;
 
         if let Err(e) = rs {
             println!("! {:?}", e);
@@ -80,6 +80,21 @@ impl UsersService for UsersServicesImpl {
         let data =
             ResponseData::success(rs_data, &("获取".to_owned() + &roles[0] + "类型用户成功"));
         res.render(serde_json::to_string(&data).unwrap());
+    }
+
+    async fn users_logout(res: &mut Response) -> () {
+        let rs = redis_delete("now_user_role").await;
+        if let Err(_) = rs {
+            let data: ResponseData<()> = ResponseData::error("Redis链接有误");
+            res.render(serde_json::to_string(&data).unwrap())
+        }
+        let rs = redis_delete("now_user_name").await;
+        if let Err(_) = rs {
+            let data: ResponseData<()> = ResponseData::error("Redis链接有误");
+            res.render(serde_json::to_string(&data).unwrap())
+        }
+        let rs = ResponseData::success("", "清除Redis缓存成功");
+        res.render(serde_json::to_string(&rs).unwrap())
     }
 }
 
