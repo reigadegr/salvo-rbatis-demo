@@ -31,7 +31,7 @@ async fn init_mysql() {
     let mysql_uri = "mysql://root:1234@127.0.0.1:3306/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     let rs = RB.link(MysqlDriver {}, mysql_uri).await;
     if rs.is_err() {
-        eprintln!("Cannote link to MySQL.");
+        eprintln!("Cannot link to MySQL.");
     }
 }
 
