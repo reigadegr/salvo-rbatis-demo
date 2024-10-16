@@ -29,8 +29,12 @@ async fn use_http3(router: Router) {
 async fn init_mysql() {
     // mysql connect info
     let mysql_uri = "mysql://root:1234@127.0.0.1:3306/bs_desktop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    RB.link(MysqlDriver {}, mysql_uri).await.unwrap();
+    let rs = RB.link(MysqlDriver {}, mysql_uri).await;
+    if let Err(_) = rs {
+        eprintln!("Cannote link to MySQL.");
+    }
 }
+
 pub async fn init_salvo_framework() {
     tracing_subscriber::fmt().init();
     init_mysql().await;
