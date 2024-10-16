@@ -19,8 +19,6 @@ pub async fn users_logout(res: &mut Response) {
 }
 
 #[handler]
-pub async fn hello(req: &mut Request) -> &'static str {
-    println!("打印helloworld");
-    println!("请求体：{:?}", req);
-    "Hello World"
+pub async fn hello() -> &'static str {
+    "hello world"
 }
