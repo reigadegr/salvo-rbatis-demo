@@ -7,6 +7,6 @@ pub fn init_router() -> Router {
                 .path("/users")
                 .push(Router::new().path("info").get(users_info))
                 .push(Router::new().path("login").post(login_post))
-                .push(Router::new().path("logout").get(users_logout))
+                .push(Router::new().path("logout").delete(users_logout))
         )
 }
