@@ -7,29 +7,16 @@ edition = "2021"
 salvo = { git = "https://gitee.com/salvo-rs/salvo", features = ["quinn", "salvo_extra"] }
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
-#async-std = "1.11.0"
-#fast_log = "1.5.24"
-# rbdc = "0.1.2"
 tokio = { version = "1.40.0", features = ["macros"] }
-
-#json = "0.12.4"
 serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
-
-# log = "0.4.22"
-# log4rs = "1.3.0"
-
 rbs = { version = "4.5.20" }
 rbatis = { version = "4.5.32", features = [] }
 rbdc-mysql = "4.5.11"
-#jsonwebtoken = "9.3.0"
-
-#futures = { version = "0.3", default-features = false }
-#thiserror = "1.0"
 once_cell = "1.20.1"
 nacos-sdk = "0.4.2"
 redis = { version = "0.27.4", features = ["tokio-comp", "json", "cluster"] }
-ctrlc = "3.4.5"
+
 
 [profile.dev]
 overflow-checks = false
