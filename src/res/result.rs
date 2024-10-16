@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct ResponseData<T> {
     pub code: i32,
     pub message: String,
-    pub data: T,
+    pub data: Option<T>,
 }
 
 // 定义统一响应代码
@@ -13,12 +13,12 @@ pub const SUCCESS_CODE: i32 = 0;
 pub const ERROR_CODE: i32 = -1;
 
 // 统一响应结构体的实现
-impl<T: Default> ResponseData<T> {
+impl<T> ResponseData<T> {
     pub fn success(data: T, message: &str) -> Self {
         ResponseData {
             code: SUCCESS_CODE,
             message: message.to_string(),
-            data,
+            data: Some(data),
         }
     }
 
@@ -26,7 +26,7 @@ impl<T: Default> ResponseData<T> {
         ResponseData {
             code: ERROR_CODE,
             message: message.to_string(),
-            data: Default::default(),
+            data: None,
         }
     }
 }
